@@ -13,14 +13,11 @@ def grading_engine(infile, outfile, obj, proc):
         return "Course Objective/Process does not sum to 1"
     else:
         return grading_points(infile, outfile, obj, proc)
-		
-	
+
 
 def generate_grading(score, mm, nn):
     m = len(mm)
     n = len(nn)
-
-    deduct = 100.0 - score
 
     grading = np.zeros((m, n), float)
 
@@ -28,30 +25,40 @@ def generate_grading(score, mm, nn):
         for j in range(0, n):
             grading[i][j] = mm[i] * nn[j] * 100
 
-    # print(grading)
+    print(grading)
 
-    column = np.zeros(m * n, float)
+    grading = grading.reshape(m * n, order='C')
+    weight = np.cumsum(grading)
+    # weight = np.reshape(weight, (m, n), order='C')
 
-    if deduct > m * n:
-        base = int(np.floor(deduct / (m * n)))
-        column = column + base
-    else:
-        base = int(0)
+    print(weight)
 
     while True:
-        if np.sum(column) >= deduct:
+        if np.sum(grading) <= score + 0.05:
             break
-        j = np.random.randint(0, m * n - 1)
-        column[j] = column[j] + 0.5
 
-    column = np.reshape(column, (m, n))
-    grading = grading - column
+        rint = np.random.randint(0, 100)
 
-    # print(column)
-    # print(grading)
-    # print(np.sum(grading))
+        for i in range(0, m * n):
+            if rint <= weight[i] and grading[i] >= 0.5:
+                grading[i] = grading[i] - 0.5
+                break
 
-    return grading
+    grading = grading.reshape((m, n), order='C')
+
+    print(grading)
+    print(np.sum(grading))
+
+    # return grading
+    return np.sum(grading)
+
+
+for i in range(0, 10000):
+    score = np.random.randint(30, 100)
+    print(score)
+    if np.fabs(score - generate_grading(score, [0.1, 0.1, 0.4, 0.4], [0.25, 0.25, 0.2, 0.3])) > 1e-4:
+        print('------------------------')
+        break
 
 
 def grading_points(infile, outfile, mm, nn):
