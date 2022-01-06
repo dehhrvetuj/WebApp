@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>Fill Out This Form To Generate Grading Points</h1>
+
+<form action="/grading" method="POST"  enctype="multipart/form-data">
+
+	<label for="Course Objectives">Course Objective 1:</label>
+	<input type="number" value="0.5" step="0.05" id="obj1" name="obj1" min="0" max="1"></br>
+	
+	<label for="Course Objectives">Course Objective 2:</label>
+	<input type="number" value="0.5" step="0.05" id="obj2" name="obj2" min="0" max="1"></br>	
+
+	<label for="Course Objectives">Course Objective 3:</label>
+	<input type="number" value="0" step="0.05" id="obj3" name="obj3" min="0" max="1"></br>
+
+	<label for="Course Objectives">Course Objective 4:</label>
+	<input type="number" value="0" step="0.05" id="obj4" name="obj4" min="0" max="1"></br>
+	
+	<label for="Course Objectives">Course Objective 5:</label>
+	<input type="number" value="0" step="0.05" id="obj5" name="obj5" min="0" max="1"></br>
+		
+	</br>
+		
+	<label for="Course Processes">Course Process 1:</label>
+	<input type="number" value="0.5" step="0.05" id="proc1" name="proc1" min="0" max="1"></br>
+	
+	<label for="Course Processes">Course Process 2:</label>
+	<input type="number" value="0.5" step="0.05" id="proc2" name="proc2" min="0" max="1"></br>	
+
+	<label for="Course Processes">Course Process 3:</label>
+	<input type="number" value="0" step="0.05" id="proc3" name="proc3" min="0" max="1"></br>
+
+	<label for="Course Processes">Course Process 4:</label>
+	<input type="number" value="0" step="0.05" id="proc4" name="proc4" min="0" max="1"></br>
+	
+	<label for="Course Processes">Course Process 5:</label>
+	<input type="number" value="0" step="0.05" id="proc5" name="proc5" min="0" max="1"></br>
+	
+	</br>
+	</br>
+	Your Excel File: <input type="file" id="myFile" name="file">
+	<input type="submit">
+</form>
+
+<body>
+	</br>
+	<p><strong>NOTE:</strong> NO for student number, Name for stduent name, and Score for gross score.</p>
+	<label for="Excel Template">Excel Template:</label>  
+    <a href="http://10.1.75.59:5000/download/grading.xlsx">Click to Download</a>    
+</body> 
+
+
+{% endblock %}
